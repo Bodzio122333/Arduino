@@ -1,0 +1,34 @@
+P1 3 Way PCB Mount Screw Terminals 5mm Pitch
+P2 2 Way PCB Mount Screw Terminals 5mm Pitch
+P3 2 Way PCB Mount Screw Terminals 5mm Pitch
+P4 2 Way PCB Mount Screw Terminals 5mm Pitch
+P5 2 Way PCB Mount Screw Terminals 5mm Pitch
+P6 2 Way PCB Mount Screw Terminals 5mm Pitch
+P7 2 Way PCB Mount Screw Terminals 5mm Pitch
+
+Buttons Screw Terminal block:
+2 Way PCB Mount Screw Terminals 5mm Pitch (3 Way + 2 Way)
+
+Total PCB Screw Terminals for P1-7 and buttons:
+- 7x 2 Way
+- 2x 3 Way
+
+A1 Arduino Uno R3
+V1 10K ohm Horizontal Trimpot
+R1 R-BL depends on the LCD usually 120 ohms
+R2 = 4k7
+R3,4,5,6 = 10K ohm
+R7,8,9,10,11 = 470 ohms
+D1,2 = 1N4007
+Q2,3,4 = BC337
+Standard Hitachi HD44780 LCD = Recommended GREEN 20x4 character backlit LCD display HD44780 compatible
+
+various
+
+STRIP LINE CONNECTOR SINGLE ROW STRAIGHT TERMINALS PITCH : 2.54 mm Divided into :
+- One 6
+- Two 8
+- A strip of 16 for LCD
+- One 10
+
+All resistors are 1/4W 5 %

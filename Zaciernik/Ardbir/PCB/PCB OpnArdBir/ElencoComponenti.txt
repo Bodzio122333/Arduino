@@ -1,0 +1,34 @@
+P1 Morsetti a Vite Passo 5 Blocco da 3
+P2 Morsetti a Vite Passo 5 Blocco da 2
+P3 Morsetti a Vite Passo 5 Blocco da 2
+P4 Morsetti a Vite Passo 5 Blocco da 2
+P5 Morsetti a Vite Passo 5 Blocco da 2
+P6 Morsetti a Vite Passo 5 Blocco da 2
+P7 Morsetti a Vite Passo 5 Blocco da 2
+Morsettiera Pulsanti Morsetti a Vite Passo 5 Blocco da 2 + Blocco da 3
+Totale
+7 Blocchi da 2
+2 Blocchi da 3
+
+A1                             Arduino Uno R3
+V1                             Trimer lineare 10K passo 5 orizzontale
+R1 O R-BL                      Dipende dal LCD solitamente 120 ohm
+R2                           = 4k7
+R3,4,5,6                     = 10K ohm
+R7,8,9,10,11                 = 470 ohm 
+D1,2                         = 1N4007
+Q2,3,4                       = BC337
+LCD Standard HITACHI HD44780 = Consigliato Display lcd VERDE 20x4 caratteri retroilluminato compatibile HD44780
+
+Varie
+
+CONNETTORE STRIP LINE FILA SINGOLA TERMINALI DIRITTI PASSO: 2,54 mm Divisi in:
+
+Un pezzo da 16 Per LCD
+Uno da  6
+Due da  8 
+Uno da 10
+
+Per Arduino
+
+Tutte le resistenze sono da 1/4W 5%

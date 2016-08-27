@@ -1,0 +1,6 @@
+Legitymacja studencka Pawe³ Bodnar Hex: 30, 116, 96, 25
+Legitymacja studencka Pawe³ Latoszek 186 52 95 55 230
+Karta 1: Hex: 210, 116, 29, 43, 
+Karta2 : Hex: 119, 226, 238, 213, 
+brylok 1 Hex: 54, 56, 116, 65, 
+brylok2 Hex: 118, 246, 125, 65, 0 
