@@ -1,0 +1,283 @@
+
+          SecureCRT(R) 6.2.3 (Official) -- September 10, 2009
+
+            Copyright (C) 1995-2009 VanDyke Software, Inc.
+                        All rights reserved.
+
+
+This file contains a SecureCRT product history.  It includes lists 
+of new features, changes, and bug fixes sorted by release.  For a 
+product description, installation notes, registration information,
+and contact information, please refer to Readme.txt (downloaded 
+with this installation).
+
+
+Changes in SecureCRT 6.2.3 (Official) -- September 10, 2009
+-----------------------------------------------------------
+
+Changes:
+
+  - SecureCRT uses the Microsoft developer libraries that contain the
+    07/28/2009 ATL update.
+  - The global value for the maximum number of columns can be set to
+    a value as small as 132.
+
+Bug fixes:
+
+  - SecureCRT 6.2.2 could get into a state where it attempted to
+    connect to a session that did not exist, which caused a crash.
+  - If a custom .mnu file that contained a syntax error was specified,
+    it could cause multiple SecureCRT.exe processes to be started and
+    then SecureCRT crashed.
+  - If text was being output and the session was scrolled up using
+    the mouse wheel, text selected using the mouse was not selected
+    correctly.
+  - In version 6.2.2, if a session that used ANSI colors and the color
+    scheme was modified so that it no longer used the color scheme,
+    the session display was not refreshed.
+  - TAPI: Phone numbers could not be saved for TAPI sessions.
+
+
+Changes in SecureCRT 6.2.2 (Official) -- July 2, 2009
+-----------------------------------------------------
+
+Changes:
+
+  - Added support for administratively prohibiting checking for
+    updates from within SecureCRT.
+
+Bug fixes:
+
+  - SecureCRT could crash if a session showing elapsed time was
+    connected and the Windows system date or time was set to a value
+    in the past.
+  - If a session that required a password was cloned, the password
+    had to be entered again.
+  - When the session option "Use Windows copy and paste hotkeys" was
+    set, the hotkeys for Find and Select All did not work.
+  - If the path in the "Select File to Send as ASCII" dialog was
+    changed, it was not remembered the next time that dialog was
+    displayed.  It is now remembered until SecureCRT exits.
+  - The installer did not honor LICENSE_FILE or CONFIG_FOLDER_PATH
+    entries that were specified in an ANSWERFILE.
+  - Silent installs did not add the program to the Start menu or
+    the list of installed programs in the Windows Control Panel.
+  - Telnet: If a logon script that did not send an initial carriage
+    return was specified for a session, a carriage return (OxOD) was
+    sent in a separate packet during authentication, which caused
+    authentication to fail if the server used line mode.
+  - SSH2: Previously, the default GEX preferred key size was changed
+    from 2046 to 2048.  However, the GSSAPI GEX maximum key size was
+    still 2046, which caused the server to report an error and
+    disconnect the session when GSSAPI GEX was used. 
+
+
+Changes in SecureCRT 6.2.1 (Official) -- April 28, 2009
+-------------------------------------------------------
+
+Bug fixes:
+
+  - SecureCRT could not be installed on systems where InstallShield
+    custom actions do not work.
+  - If a license with a maintenance date in the format MM-DD-YY was
+    entered, SecureCRT crashed.
+  - Under Vista, the mouse wheel did not scroll if the system used
+    the MS Explorer Mouse driver.
+  - Function and arrow keys did not work correctly with servers that
+    expect all the characters in escape sequences to be sent in the
+    same packet.
+  - In a session with the "Retain size and font" option set, if the
+    window was resized so that it was smaller than the logical rows
+    and columns, the wrong text was highlighted during a find
+    operation.
+  - If a session was opened in a new window and the window was
+    closed prior to authentication completing, authentication prompts
+    continued to be displayed.
+  - In the Keymap Editor, if a key was selected and a keymap that
+    mapped that key was loaded, the keymap assignment display was
+    not updated.
+  - In the Connect dialog, a session that was copied could not be
+    pasted more than two times.
+  - If the Visual Studio 2008 DLLs were not in the side-by-side
+    cache, MFC90.DLL errors were written to the event viewer when
+    SecureCRT ran.
+  - SSH1/SSH2: If an RSA key with a passphrase was added in the
+    Manage Agent Keys dialog and the wrong passphrase was entered,
+    the incorrect error "The key packet is corrupt, damaged, or
+    incompatibly formatted" was reported and was still reported
+    after the correct passphrase was entered.
+
+
+Changes in SecureCRT 6.2 (Official) -- March 31, 2009
+-----------------------------------------------------
+
+No changes.
+
+
+Changes in SecureCRT 6.2 (Beta 3) -- March 19, 2009
+---------------------------------------------------
+
+Bug fixes:
+
+  - SecureCRT crashed if a session was disconnected before the shell
+    request succeeded.
+  - SecureCRT crashed if the File menu was selected after the menu
+    bar was reset to Default from the Menus tab in the Customize
+    menu.
+  - When some escaped ASCII characters such as "\200" were sent
+    to the remote system from a script or a mapped key, they
+    were transformed first.
+  - With the "Retain size and font" option set, the PageUp and
+    PageDown keys scrolled a different amount than when using the
+    mouse to page up and page down.
+  - The trace output displayed garbage for an "Unknown
+    CHANNEL_REQUEST" message.
+  - When generating a public key in the Key Generation wizard, the
+    progress bar was not displayed until after the key had been
+    generated.
+  - Three-year licenses were not being honored.
+  - In the Connect dialog, when a new folder was added, a folder
+    called "New Folder" was also added.
+  - In the Connect dialog, attempting to rename a session to the same
+    name as its parent folder reported an error that the name was
+    already in use.
+  - After pasting a copied session into a folder in the Connect
+    dialog, the folder was selected.
+  - SSH1: When SecureCRT was installed on a U3 drive, public-key
+    authentication always failed for SSH1 sessions.
+  - SSH2: Attempting to authenticate using GSSAPI with the 64-bit
+    MIT Kerberos DLL failed.
+  - SFTP: If a transfer operation was cancelled using CTRL+C, the
+    SFTP tab became unresponsive.
+
+
+Changes in SecureCRT 6.2 (Beta 2) -- February 17, 2009
+------------------------------------------------------
+
+Bug fixes:
+
+  - Under Vista, selecting a file using "Zmodem Upload List..." from
+    the Transfer menu caused SecureCRT to crash.
+  - If the "Clear on disconnect" option was set and SecureCRT went
+    into full screen mode after disconnecting from a session that
+    had more than a page of output, SecureCRT crashed.
+  - SecureCRT could crash after attempting to connect to a host that
+    was not responding.
+  - Under certain circumstances, SecureCRT could crash after
+    scrolling back and then attempting to select some text.
+  - If a session setting was changed in the Session Options dialog
+    and then the Session Options dialog was re-opened, SecureCRT
+    sometimes crashed.
+  - If the X/Y/Zmodem upload and download folders did not exist and
+    a Zmodem download was started and the "Browse for Folder" dialog
+    was used after the transfer had timed out, SecureCRT crashed.
+  - If the command line specified a path for a script, the script
+    was not launched.
+  - On a 64-bit machine, Help could not be launched.
+  - With the "Retain size and font" option set, under certain
+    circumstances, data displayed in the session window could not
+    be selected.
+  - If a Zmodem transfer was started and the download directory was
+    not valid, if the "Browse for Folder" dialog was cancelled after
+    the transfer timed out, garbage characters were sent to the
+    server.
+  - In the Connect dialog, if several sessions were selected and one
+    was de-selected, when the mouse was right-clicked to display the
+    context menu, the session was selected.
+  - New color schemes added to an active session were not saved to
+    the configuration file.
+  - The 64-bit combined SecureCRT and SecureFX installer installed
+    into the x86 location when run in silent mode.
+  - In the installer, on the dialog that shows where the
+    application is going to be installed, long install location
+    paths were cut off.
+  - The upgrade eligibility date displayed in the installer was not
+    correct.
+
+
+Changes in SecureCRT 6.2 (Beta 1) -- January 29, 2009
+-----------------------------------------------------
+
+New features:
+
+  - A native 64-bit Windows version is available.
+  - Multiple sessions can be selected and edited from the Connect
+    dialog.  Only the changed fields will be applied to the
+    selected sessions, which allows specific settings to be
+    changed for a group of sessions.
+  - There is a new option to remember which sessions were open the
+    last time SecureCRT ran so that they can be launched the next
+    time the application runs.
+  - Added an option to create a new log file at midnight, which
+    can be used to do automatic log rotation.
+  - Added support for creating folders when a log file path is
+    specified that does not already exist, which allows parameter
+    substitutions to be used in folder names for log file paths.
+  - Added a command-line parameter /LOG, which allows a log file to
+    be specified on the command line.
+  - A blank password can be used to lock a session, which makes it
+    easier to prevent accidental typing in sessions.
+  - SSH2: Added support for PKCS#11, allowing a Cryptographic Token
+    Interface to be used for smart-card authentication.
+  - SSH2: In the Activator, agent support has been enhanced by
+    allowing keys to be explicitly added and removed.
+  - SFTP: Added support for recursive remove (rm -r).
+  - SFTP: Added support for the flags -a and -d to the ls and lls
+    commands.
+
+Changes:
+
+  - Empty cells are not stored in the scrollback buffer, which in
+    most cases, significantly reduces the amount of memory used by
+    a session.
+  - The default Maximum columns setting has been increased to 256.
+  - The default download, upload, and public key generation folders
+    have been changed to "My Documents".  Under Vista, the default
+    download folder is the user's Download folder.  Only new
+    installations are affected.
+  - When SecureCRT and SecureFX are integrated, if the SecureFX
+    button on the SecureCRT toolbar is pressed and the current
+    session does not have a valid file transfer protocol
+    specified, a more informative message is displayed.
+  - Serial: Added support for changing the baud rate of a connected
+    session.
+  - SSH1/SSH2: Added support for specifying a password in the
+    Session Options dialog.
+  - SSH1/SSH2:  When creating an identity file, moving the mouse is
+    no longer required to generate random data.
+
+Bug fixes:
+
+  - A script that called crt.Close immediately after calling
+    crt.Screen.Send could cause SecureCRT to crash.
+  - Connecting multiple sessions in tabs from a script sometimes did
+    not work correctly and some sessions hung or did not connect.
+  - If the first tabbed session used the vt100 font, a session
+    that used UTF-8 encoding could not be cloned.
+  - The terminal dimensions were not updated when tabs were dragged
+    between windows of different dimensions.
+  - After exiting a session of vi that changed the foreground and
+    background colors, the foreground and background colors were not
+    restored correctly.
+  - In some cases, the scrollbar was in the wrong position after
+    switching between tabbed sessions.
+  - When downloading a file that contained an illegal character
+    such as ":" using Zmodem or Ymodem, the file name was truncated
+    at the illegal character.  Illegal characters are now replaced
+    with "_".
+  - If a firewall was specified on the command line and the firewall
+    name contained a space, it was not used.
+  - If the "Auto Save Options" setting was off and a value was
+    changed in the Global Options dialog, if the Global Options
+    dialog was re-opened, the change was not reflected in the
+    dialog.
+  - SecureCRT had to be restarted in order for changes made to the
+    Default session to be honored in Quick Connect.
+  - If a session was deleted while it was connected, the session was
+    added to the session database after it was disconnected.
+  - If the "Retain size and font" option was set and the window was
+    resized, under certain circumstances, some lines did not have
+    the correct background color.
+  - If a firewall failed to connect and the "Auto reconnect" option
+    was set, a new firewall authentication dialog was displayed
+    every second.

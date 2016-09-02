@@ -5,31 +5,30 @@ void setup() {
 
 pinMode(przekaznik, OUTPUT);
 pinMode(wlacznik, INPUT_PULLUP); // dajemy na przycisku podciągnięcie do masy rezystorem
-digitalWrite(przekaznik, LOW);
+digitalWrite(przekaznik, HIGH);
 
 }
 
 void loop() {
 
 
-  if(digitalRead(wlacznik) == HIGH)       //wyzwalamy sygnałem wysokim i sprawdzamy stan przycisku 3 razy             
+  if(digitalRead(wlacznik) == LOW)       //wyzwalamy sygnałem wysokim i sprawdzamy stan przycisku 3 razy             
   { 
     delay(20);
     
-    if(digitalRead(wlacznik) == HIGH)
+    if(digitalRead(wlacznik) == LOW)
     {
       delay(20);
-      if(digitalRead(wlacznik) == HIGH)
+      if(digitalRead(wlacznik) == LOW)
       {
-          digitalWrite(przekaznik, HIGH);
-          delay(500);
           digitalWrite(przekaznik, LOW);
+          delay(500);
+          digitalWrite(przekaznik, HIGH);
           while (digitalRead(wlacznik) == LOW);
           delay(1000);
       }
       delay(1000);
       }
       delay(1000);
-      }
-    }
+      }}
 
