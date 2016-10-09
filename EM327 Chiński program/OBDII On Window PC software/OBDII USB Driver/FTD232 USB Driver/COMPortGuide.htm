@@ -1,0 +1,145 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-gb">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Virtual COM Port Settings Guide</title>
+</head>
+
+<body>
+
+<div align="left">
+  <table border="0" cellpadding="5" cellspacing="5" width="600" bgcolor="#99CCFF">
+    <tr>
+      <td width="612"><b><font FACE="Arial" SIZE="4">
+        <p ALIGN="center" style="word-spacing: 0; text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10; margin-top: 0; margin-bottom: 0">Virtual
+        COM Port Settings Guide</p>
+        <u>
+        <hr>
+        </u><p ALIGN="left" style="text-indent: 20; line-height: 150%; word-spacing: 0; margin-left: 10; margin-right: 10; margin-top: 0; margin-bottom: 0"><font FACE="Arial" SIZE="2">This
+        is a general guide </font></font>
+        <font face="Arial" size="2">detailing how to find out and adjust the
+        settings of the FTDI Virtual COM Ports.&nbsp; </font><font FACE="Arial" SIZE="4"><font FACE="Arial" SIZE="2">
+        Although the images are taken from a Windows '98 uninstall session, the
+        procedure is nearly identical under Windows 2000, Windows ME and Windows
+        XP as well.</font> </p>
+        <p ALIGN="left" style="text-indent: 20; line-height: 150%; word-spacing: 0; margin-left: 10; margin-right: 10; margin-top: 0; margin-bottom: 0"><font FACE="Arial" SIZE="2">From
+        the Windows &quot;Start&quot; button, select Settings -&gt; Control
+        Panel to bring up the Windows Control Panel. From the Windows Control
+        Panel select </font></font><font face="Arial" size="2">and click on the <font FACE="Arial" SIZE="4">&quot;</font></font><font face="Arial" size="2">System</font><font FACE="Arial" SIZE="2"><font FACE="Arial" SIZE="4">&quot;</font>
+        <font face="Arial"> icon</font></font><font FACE="Arial" SIZE="4"><font FACE="Arial" SIZE="2">.
+        </font> </p>
+        </font>
+        </b> </td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="center" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><img border="0" src="images/W980012.gif" width="478" height="336"></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="left" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><b><font FACE="Arial" SIZE="2">The
+        following System Properties screen should be displayed on the PC ...</font></b></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="center" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><img border="0" src="images/W980013.gif" align="middle" width="410" height="448"></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="left" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><b><font face="Arial" size="2">Select
+        the &quot;Device Manager&quot; tab, and use the &quot;View devices by
+        type&quot; option. Scroll down the page until Ports (COM &amp; LPT) is
+        shown then click on the &quot;+&quot; symbol to show the entries in this
+        category. Look for an entry &quot;USB Serial Port&quot; with a COM Port
+        number following it, click on it to select it, then click on the
+        &quot;Properties&quot; button at the bottom of the page to see more
+        details of the device. In the illustration below the Virtual COM Port is
+        set to COM3 - this may be different depending on which devices have been
+        installed prior to plugging in the FTDI USB device.</font></b></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="center" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><img border="0" src="images/W980014.gif" align="middle" width="410" height="448"></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="left" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><font face="Arial" size="2"><b>The
+        General page of the properties screen shows and few details about the
+        device and confirms that the device is working properly ( as far as
+        Windows is concerned ). For more details click on the &quot;Port
+        Settings&quot; tab ...</b></font></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="center" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><img border="0" src="images/W980015.gif" align="middle" width="362" height="429"></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="left" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><b><font face="Arial" size="2">The
+        Port Settings page shows the default settings of the Virtual COM Port.
+        As nearly all Windows applications will initialize the COM port to the
+        settings they require, these default values are not usually important
+        and can be left as-is. The most frequent requirement is to change the
+        COM Port number. To do this, click on the &quot;Advanced&quot; setting
+        button at the bottom of the screen.</font></b></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p align="center"><img border="0" src="images/W980016.gif" align="middle" width="362" height="429"></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="left" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><b><font face="Arial" size="2">In
+        the Advance Port Settings page, their is a drop down menu that allows
+        you to change the COM Port number. Before changing it, please make
+        certain that the new COM Port number does not conflict with any other
+        hardware or virtual COM port present in the system and listed in Device
+        manager ( above ). The Transmit Buffer and Receive buffer sliders are
+        for hardware COM ports only and do not have any effect on a Virtual COM
+        Port.</font></b></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="center" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><img border="0" src="images/W980017.gif" align="middle" width="462" height="308"></td>
+    </tr>
+    <tr>
+      <td width="612" align="left">
+        <p align="left" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10; margin-top: 5; margin-bottom: 5"><b><font face="Arial" size="2">To
+        verify that the correct drivers have been installed select the
+        &quot;Driver&quot; panel of the COM Port Properties page and click on
+        &quot;Driver File Details&quot;.</font></b></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="center" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><img border="0" src="images/W980018.gif" width="362" height="429"></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10; margin-top: 5; margin-bottom: 5" align="left"><font face="Arial" size="2"><b>Click
+        on the FTCOMMS.VXD file to Highlight it. The Provider, File version and
+        Copyright notice details will be shown on the lower part of the Panel.</b></font>
+      </td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="center" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><img border="0" src="images/W980019.gif" width="342" height="399"></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <p ALIGN="left" style="text-indent: 20; line-height: 150%; margin-left: 10; margin-right: 10"><font face="Arial" size="2"><b>Click
+        the &quot;OK&quot; button to exit the Driver File Details panel.</b></font></td>
+    </tr>
+    <tr>
+      <td width="612">
+        <hr>
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>
