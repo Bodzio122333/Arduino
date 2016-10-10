@@ -1,7 +1,17 @@
 //////////// WYSWIETLACZ ////////////////////
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x27,20,4);  // Adres wyświetlacza i jego rozmiar
+LiquidCrystal_I2C lcd(0x27,16,2);  // Adres wyświetlacza i jego rozmiar
+byte customChar[8] = {
+  0b00010,
+  0b00101,
+  0b00010,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000,
+  0b00000
+};
 /////////////////////////////////////////////
 
 //////////// TERMOMETRY DS1820B /////////////
@@ -50,6 +60,7 @@ lcd.init();  // Inicjalizacja LCD
   lcd.print("Inicjalizacja");
   lcd.setCursor(0,1);
   lcd.print("czujnikow");
+  lcd.createChar(0, customChar);
   delay(3000);
   
 /////////////////////////////////////////////
@@ -133,7 +144,7 @@ lcd.setCursor(0,0);
 
 pinMode(8, OUTPUT);  
 
-    tone(8,LA3,Q); // muzyczka na init
+   /* tone(8,LA3,Q); // muzyczka na init
     delay(1+Q); 
     tone(8,LA3,Q);
     delay(1+Q);
@@ -174,6 +185,7 @@ pinMode(8, OUTPUT);
     delay(1+S);
     tone(8,LA3,H);
     delay(1+H);
+    */
     digitalWrite(8, HIGH);
    
   delay(1000);
@@ -189,9 +201,18 @@ pinMode(8, OUTPUT);
   delay(3000);
   lcd.clear();
   lcd.setCursor(0,0);
-  lcd.print("Szczyt 0: ");
+  lcd.print("Szczyt0:");
   lcd.setCursor(0,1);
-  lcd.print("Kociol 1:");
+  lcd.print("Kociol1:");
+    lcd.setCursor(15,0);
+  lcd.print("C");
+  lcd.setCursor(15,1);
+  lcd.print("C");
+  lcd.setCursor(14,0);
+  lcd.write((uint8_t)0);
+  lcd.setCursor(14,1);
+  lcd.write((uint8_t)0);
+  
 
   
   
@@ -217,28 +238,31 @@ if (sensors.available())
       Serial.println(F(" 'C"));
       if ( (i == 0) && (Term0OK== true) )
           {
-        //  lcd.setCursor(0,0);
-         // lcd.print("Szczyt ");
-         // lcd.print(i);
-         // lcd.print(" :");
-         lcd.setCursor(9,0);
+          lcd.setCursor(9,0);
           lcd.print(temperature);
-          
-          
             }
             
           if (  (i == 1) && (Term1OK== true))
           {
-        //   lcd.setCursor(0,1);
-         // lcd.print("Kociol ");
-         // lcd.print(i);
-          //lcd.print(" :");
+       
           lcd.setCursor(9,1);
           lcd.print(temperature);
             }
-           
+
             
-    }
+         if ( (i == 0) && (Term0OK== false) )
+          {
+          lcd.setCursor(0,0);
+          lcd.print("                ");
+          }
+
+        if ( (i == 1) && (Term1OK== false) )
+          {
+          lcd.setCursor(0,1);
+          lcd.print("                ");
+          }
+        }
+           
 
     // Wyslanie prosby o nastepny pomiar
     sensors.request();
