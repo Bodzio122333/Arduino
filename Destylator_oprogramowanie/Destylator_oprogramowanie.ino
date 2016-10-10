@@ -8,33 +8,36 @@ LiquidCrystal_I2C lcd(0x27,20,4);  // Adres wyświetlacza i jego rozmiar
 #include <OneWire.h>
 #include <DS18B20.h>
 const byte ONEWIRE_PIN = 2; //Pin 1-wire do którego jest podłączona szyna danych przez rezystor 4.7 kohm
-byte sensorAddress[8] = {0x28, 0xCD, 0x8D, 0x3, 0x0, 0x0, 0x80, 0xE8};
-
+const byte SENSORS_NUM = 2; // ilosc czujnikow
+const byte sensorsAddress[SENSORS_NUM][8] PROGMEM = {
+0x28, 0x3C, 0x8B, 0x3, 0x0, 0x0, 0x80, 0x31,
+0x28, 0xCD, 0x8D, 0x3, 0x0, 0x0, 0x80, 0xE8}; // Adresy
 // 1-Wire object
 OneWire onewire(ONEWIRE_PIN);
 // DS18B20 sensors object
 DS18B20 sensors(&onewire);
+bool Term0OK =true;
+bool Term1OK =true;
 /////////////////////////////////////////////
 
 //////////// BUZZER ////////////////////////
-
-
+#define BPM 120
+#define Q 60000/BPM
+#define S Q/4
+#define E Q/2
+#define S Q/4
+#define H 2*Q
+#define E4  329.63
+#define C4  261.63
+#define LA3 220.00
+#define F3  174.61
+#define F4  349.23
+#define Ab3 207.65
 ////////////////////////////////////////////
 
 
 void setup() {
-
-//////////// TERMOMETRY DS1820B /////////////
-  // Serial port setup
-  while(!Serial);
-  Serial.begin(9600);
   
-  // DS18B20 sensors setup
-  sensors.begin();
-
-
-/////////////////////////////////////////////
-
 //////////// WYSWIETLACZ ////////////////////
 lcd.init();  // Inicjalizacja LCD
   lcd.backlight();
@@ -43,41 +46,207 @@ lcd.init();  // Inicjalizacja LCD
   lcd.setCursor(0,1);
   lcd.print("systemu");
   delay(3000);
-  lcd.clear();
-
-  
-  lcd.print("Psotniku Twoj"); // to trzeba dac na koniec setupu
+  lcd.setCursor(0,0);
+  lcd.print("Inicjalizacja");
   lcd.setCursor(0,1);
-  lcd.print("garnek gotowy");
-  delay(10000);
-  lcd.clear();
+  lcd.print("czujnikow");
+  delay(3000);
   
+/////////////////////////////////////////////
 
 
+
+//////////// TERMOMETRY DS1820B /////////////
+  // Uruchomienie serial portu
+  while(!Serial);
+  Serial.begin(9600);
+
+  // Inicjalizacja czujnikow
+  sensors.begin(11);
+
+  // Wyslanie pierwszej prosby o pomiar
+  sensors.request();
+delay(100);
+for (byte i=0; i<SENSORS_NUM; i++)
+    {
+      float temperature = sensors.readTemperature(FA(sensorsAddress[i]));
+
+      // Prints the temperature on Serial Monitor
+      Serial.print(F("#"));
+      Serial.print(i);
+      Serial.print(F(": "));
+      Serial.print(temperature);
+      Serial.println(F(" 'C"));
+      
+      if (temperature == -273.15)
+        {
+          Serial.print("Czujnik ");
+          Serial.print(i);
+          Serial.println(" jest niepodlaczony");
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Czujnik ");
+          lcd.print(i);
+          lcd.setCursor(0,1);
+          lcd.print(" jest niegotowy");
+          if ( i == 0)
+          {
+            Term0OK= false;
+            }
+            
+          if ( i == 1)
+          {
+            Term1OK=false;
+            }
+            delay(2000);
+            lcd.clear();
+
+
+          
+        }
+      else
+        {
+          Serial.print("Czujnik ");
+          Serial.print(i);
+          Serial.println(" jest gotowy");
+             lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("Czujnik ");
+          lcd.print(i);
+          lcd.setCursor(0,1);
+          lcd.print(" jest gotowy");
+          delay(2000);
+          lcd.clear();
+        }
+
+     
+    }
 
 /////////////////////////////////////////////
 
 //////////// BUZZER ////////////////////////
+lcd.setCursor(0,0);
+  lcd.print("Test");
+  lcd.setCursor(0,1);
+  lcd.print("alarmu");
+  delay(1000);
 
+pinMode(8, OUTPUT);  
+
+    tone(8,LA3,Q); // muzyczka na init
+    delay(1+Q); 
+    tone(8,LA3,Q);
+    delay(1+Q);
+    tone(8,LA3,Q);
+    delay(1+Q);
+    tone(8,F3,E+S);
+    delay(1+E+S);
+    tone(8,C4,S);
+    delay(1+S);
+    
+    
+    tone(8,LA3,Q);
+    delay(1+Q);
+    tone(8,F3,E+S);
+    delay(1+E+S);
+    tone(8,C4,S);
+    delay(1+S);
+    tone(8,LA3,H);
+    delay(1+H);
+     
+    
+    tone(8,E4,Q); 
+    delay(1+Q); 
+    tone(8,E4,Q);
+    delay(1+Q);
+    tone(8,E4,Q);
+    delay(1+Q);
+    tone(8,F4,E+S);
+    delay(1+E+S);
+    tone(8,C4,S);
+    delay(1+S);
+    
+    tone(8,Ab3,Q);
+    delay(1+Q);
+    tone(8,F3,E+S);
+    delay(1+E+S);
+    tone(8,C4,S);
+    delay(1+S);
+    tone(8,LA3,H);
+    delay(1+H);
+    digitalWrite(8, HIGH);
+   
+  delay(1000);
+  lcd.clear();
 
 ////////////////////////////////////////////
+
+//////////// WYSWIETLACZ ////////////////////
+  lcd.setCursor(0,0);
+  lcd.print("Panoramiksie"); // to trzeba dac na koniec setupu
+  lcd.setCursor(0,1);
+  lcd.print("garnek gotowy");
+  delay(3000);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Szczyt 0: ");
+  lcd.setCursor(0,1);
+  lcd.print("Kociol 1:");
+
+  
+  
+/////////////////////////////////////////////
 }
 
 void loop() {
 
 //////////// TERMOMETRY DS1820B /////////////
-  // Requests sensor for measurement
-  sensors.request(sensorAddress);
-  
-  // Waiting (block the program) for measurement reesults
-  while(!sensors.available());
-  
-  // Reads the temperature from sensor
-  float temperature = sensors.readTemperature(sensorAddress);
-  
-  // Prints the temperature on Serial Monitor
-  Serial.print(temperature);
-  Serial.println(F(" 'C"));
+if (sensors.available())
+  {
+    for (byte i=0; i<SENSORS_NUM; i++)
+    {
+      // Odczyt temperatury z sensorow
+      // *** Indexed address from Flash memory
+      float temperature = sensors.readTemperature(FA(sensorsAddress[i]));
+
+      // Wyswietlenie wyniku na serial porcie
+      Serial.print(F("#"));
+      Serial.print(i);
+      Serial.print(F(": "));
+      Serial.print(temperature);
+      Serial.println(F(" 'C"));
+      if ( (i == 0) && (Term0OK== true) )
+          {
+        //  lcd.setCursor(0,0);
+         // lcd.print("Szczyt ");
+         // lcd.print(i);
+         // lcd.print(" :");
+         lcd.setCursor(9,0);
+          lcd.print(temperature);
+          
+          
+            }
+            
+          if (  (i == 1) && (Term1OK== true))
+          {
+        //   lcd.setCursor(0,1);
+         // lcd.print("Kociol ");
+         // lcd.print(i);
+          //lcd.print(" :");
+          lcd.setCursor(9,1);
+          lcd.print(temperature);
+            }
+           
+            
+    }
+
+    // Wyslanie prosby o nastepny pomiar
+    sensors.request();
+    
+    delay(500);
+    
+  }
+
 
 /////////////////////////////////////////////
 
@@ -86,7 +255,7 @@ void loop() {
 
 /////////////////////////////////////////////
 
-//////////// BUZZER ////////////////////////
+//////////// ALARM ////////////////////////
 
 
 ////////////////////////////////////////////
