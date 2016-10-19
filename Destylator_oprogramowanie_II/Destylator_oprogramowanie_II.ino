@@ -47,7 +47,7 @@ byte customChar[8] = {
 
 //////////// ALARM ////////////////////////
 
-int tempAlarm =30; // temperatura po której przekroczeniu uruchamia się alarm
+int tempAlarm =98; // temperatura po której przekroczeniu uruchamia się alarm
 
 
 ////////////////////////////////////////////
