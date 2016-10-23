@@ -1,0 +1,19 @@
+AT+RST
+ready
+AT+CIPMUX=0
+OK
+AT+CWMODE=1
+OK
+AT+CWDHCP=1,1
+OK
+AT+CWJAP="Necik","bodnar5732436"
+OK
+
+AT+CIPSTART="TCP","184.106.153.149",80 
+
+AT+CIPSEND=75
+GET https://api.thingspeak.com/update?api_key=3NQEALXD084BWSTJ&field1=1000
+
+AT+CIPCLOSE
+
+

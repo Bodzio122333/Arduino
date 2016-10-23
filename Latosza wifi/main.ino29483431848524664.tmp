@@ -1,0 +1,15 @@
+void setup() {
+  Serial.begin(9600);
+  if (wifi_connect("UPCF95A422", "Bjzv2czzrKvk")) Serial.println("Polaczono!");
+  else Serial.println("Brak");
+
+  wifi.println("AT+CIPSTART=0,GET,http://sqllatosza.cba.pl/pomiar_arduino.php?temperatura=3,80");
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}
+
+
+
