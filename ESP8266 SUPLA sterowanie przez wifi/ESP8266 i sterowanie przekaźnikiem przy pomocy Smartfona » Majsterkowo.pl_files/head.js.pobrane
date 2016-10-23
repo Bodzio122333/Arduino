@@ -1,0 +1,113 @@
+jQuery(document).ready(function(){
+    /* Zliczanie wyświetleń */
+    //if(jQuery('#wyswietlenia').length) {var ajax_post_ID = jQuery('#wyswietlenia').attr('rel'); jQuery('#wyswietlenia').load('http://majsterkowo.pl/wp-content/themes/majsterkowo/ajax/wyswietlenia.php?pID='+ajax_post_ID);}
+
+    /* Powiększanie zdjęć w postach */
+    jQuery('article p a[target!="_blank"]').has('img').colorbox({scalePhotos: true, maxWidth: '100%', maxHeight: '100%'});
+    jQuery('article table a[target!="_blank"]').has('img').colorbox({scalePhotos: true, maxWidth: '100%', maxHeight: '100%'});
+    jQuery('article div.gallery a').has('img').colorbox({scalePhotos: true, rel:"landscapes", current:"Zdjęcie {current} z {total}", maxWidth: '100%', maxHeight: '100%'});
+    
+    jQuery('.comment-body a[target!="_blank"]').has('img').colorbox({scalePhotos: true, maxWidth: '100%', maxHeight: '100%'});
+
+	// Śledzenie linków
+	jQuery("a[rel*='link']").click(function()           {var link = jQuery(this).attr('href'); _gaq.push(['_trackEvent', 'Linki', link]);});
+	jQuery("a[rel*='nettigo']").click(function()        {var link = jQuery(this).attr('href'); _gaq.push(['_trackEvent', 'Linki (Nettigo)', link]);});
+
+    jQuery("a[rel*='forbot']").click(function()         {_gaq.push(['_trackEvent', 'Linki (Forbot)', 'Box na glownej']);});
+});
+
+
+jQuery(function($) {
+    // Debug flag
+    var debugMode = false;
+
+    // Default time delay before checking location
+    var callBackTime = 100;
+
+    // # px before tracking a reader
+    var readerLocation = 300;
+
+    // container id/class
+    var container = "article.post";
+
+    // reader/scanner delay
+    var reader_delay = 60;
+
+    // Set some flags for tracking & execution
+    var timer = 0;
+    var scroller = false;
+    var endContent = false;
+    var didComplete = false;
+
+    // Set some time variables to calculate reading time
+    var startTime = new Date();
+    var beginning = startTime.getTime();
+    var totalTime = 0;
+
+    // Track the aticle load
+    if (!debugMode) {
+        _gaq.push(['_trackEvent', 'Czytelnicy', 'Zaladowanie strony', '', , true]);
+    }
+
+    // Check the location and track user
+    function trackLocation() {
+        bottom = $(window).height() + $(window).scrollTop();
+        height = $(document).height();
+
+        // If user starts to scroll send an event
+        if (bottom > readerLocation && !scroller) {
+            currentTime = new Date();
+            scrollStart = currentTime.getTime();
+            timeToScroll = Math.round((scrollStart - beginning) / 1000);
+            if (!debugMode) {
+                _gaq.push(['_trackEvent', 'Czytelnicy', 'Poczatek postu', '', timeToScroll, true]);
+            } else {
+                console.log('started reading ' + timeToScroll);
+            }
+            scroller = true;
+        }
+
+        // If user has hit the bottom of the content send an event
+        if (bottom >= $(container).scrollTop() + $(container).innerHeight() && !endContent) {
+            currentTime = new Date();
+            contentScrollEnd = currentTime.getTime();
+            timeToContentEnd = Math.round((contentScrollEnd - scrollStart) / 1000);
+            if (!debugMode) {
+                _gaq.push(['_trackEvent', 'Czytelnicy', 'Koniec postu', '', timeToContentEnd, true]);
+                //if(jQuery('#ajax-formularz-komentowania').length) {var ajax_post_ID = jQuery('#ajax-formularz-komentowania').attr('rel'); jQuery('#ajax-formularz-komentowania').load('http://majsterkowo.pl/ajax-formularz-komentowania/?pID='+ajax_post_ID);}
+                //if(jQuery('#social-left').length) {var ajax_post_ID = jQuery('#social-left').attr('rel'); jQuery('#social-left').load('http://majsterkowo.pl/ajax-gd-star-rating/?pID='+ajax_post_ID);}
+            } else {
+                console.log('end content section '+timeToContentEnd);
+            }
+            endContent = true;
+        }
+
+        // If user has hit the bottom of page send an event
+        if (bottom >= height && !didComplete) {
+            currentTime = new Date();
+            end = currentTime.getTime();
+            totalTime = Math.round((end - scrollStart) / 1000);
+            if (!debugMode) {
+                if (totalTime < reader_delay) {
+                    _gaq.push(['_setCustomVar', 5, 'Typy czytelnikow', 'Skaner', 2]);
+                } else {
+                    _gaq.push(['_setCustomVar', 5, 'Typy czytelnikow', 'Czytelnik', 2]);
+                }
+                _gaq.push(['_trackEvent', 'Czytelnicy', 'Stopka', '', totalTime, true]);
+            } else {
+                console.log('bottom of page '+totalTime);
+            }
+            didComplete = true;
+        }
+    }
+
+    // Track the scrolling and track location
+    $(window).scroll(function() {
+        if (timer) {
+            clearTimeout(timer);
+        }
+
+        // Use a buffer so we don't call trackLocation too often.
+        timer = setTimeout(trackLocation, callBackTime);
+    });
+});

@@ -1,0 +1,30 @@
+	jQuery(document).ready(function() {
+		console.log('ok');
+		jQuery(".klik span").click(function() {
+	 		var ocena = jQuery(this).attr("ocena");
+	 		var post_ID = jQuery(this).parent().parent().parent().attr('pid');
+	 		var rozmiar = jQuery(this).parent().parent().parent().attr('roz');
+	 		var legenda = jQuery(this).parent().parent().parent().attr('leg');
+
+	 		//jQuery('.ocena-' + post_ID).addClass("ukryj");
+	 		jQuery(this).addClass("obracaj");
+
+	 		console.log('klik! ' + ocena + ' ID: ' + post_ID);
+	 		
+	 		jQuery.ajax({
+				url : postgwiazdki.ajax_url,
+				type : 'post',
+				data : {
+					action: 'gwiazdki',
+					ocena: ocena,
+					post_ID: post_ID,
+					rozmiar: rozmiar,
+					legenda: legenda
+				},
+				success : function( response ) {
+					console.log(response);
+					jQuery('.ocena-' + post_ID).replaceWith(response);
+				}
+			});
+		});
+	});

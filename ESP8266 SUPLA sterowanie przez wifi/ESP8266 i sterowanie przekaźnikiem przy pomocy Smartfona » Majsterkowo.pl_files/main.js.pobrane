@@ -1,0 +1,243 @@
+( function ( $, window, document ) {
+
+	$( function () {
+
+		'use strict';
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Superfish Menu
+		/*-----------------------------------------------------------------------------------*/
+		$( 'ul.sf-menu' ).superfish( {
+			delay: 100,
+			speed: 'fast',
+			autoArrows: false
+		} );
+
+		// Hide mega menu if window is not fully loaded
+		$( '.sf-mega' ).css( 'visibility', 'hidden' );
+
+		// define variables for 'Posts' Mega Menu
+		var $megaMenuNav = $( '.sf-mega.posts .mega-categories li' );
+		var $megaMenuMain = $( '.sf-mega.posts' ).prev();
+
+		// for root/parent Mega Menu
+		$megaMenuMain.on( 'mouseover', function ( e ) {
+			$( this ).children().children().children( '.mega-posts' ).show();
+			$( this ).next().children().children( '.mega-categories' ).find( '.mega-posts' ).hide();
+		} );
+
+		// for children Mega Menu
+		$megaMenuNav.on( 'mouseover', function ( e ) {
+			$( this ).parent().next().hide();
+			$( this ).siblings().removeClass( 'active' ).end().addClass( 'active' );
+			$( this ).siblings().children( '.mega-posts' ).hide();
+			$( this ).children( '.mega-posts' ).show();
+		} );
+
+		// tweak to make root/parent Mega Menu show up again after second times
+		$megaMenuNav.on( 'mouseleave', function ( e ) {
+			$( this ).children( '.mega-posts' ).hide();
+			$( this ).parent().next().show();
+		} );
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Scroll Top
+		/*-----------------------------------------------------------------------------------*/
+		$( 'a[href="#top"]' ).on( 'click', function ( e ) {
+			e.preventDefault();
+			$( 'html, body' ).animate( {
+				scrollTop: 0
+			}, 'slow' );
+		} );
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Sidebar Toggle
+		/*-----------------------------------------------------------------------------------*/
+		$( '.sidebar-toggle' ).on( 'click', function ( e ) {
+			e.preventDefault();
+			$( 'body' ).toggleClass( 'sidebar1-expanded' );
+			$( '.sidebar1-wrapper' ).fadeToggle();
+		} );
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Slick Nav
+		/*-----------------------------------------------------------------------------------*/
+		$( '#primary-menu' ).slicknav( {
+			prependTo: '#primary-bar',
+			label: sitebox.menu,
+			beforeOpen: function( trigger ) {
+				if ( $( '#secondary-bar .slicknav_menu ul[aria-hidden="false"]' ).length ) {
+					$( '#secondary-menu' ).slicknav( 'close' );
+				}
+			}
+		} );
+		$( '#secondary-menu' ).slicknav( {
+			prependTo: '#secondary-bar',
+			label: sitebox.menusec,
+			beforeOpen: function( trigger ) {
+				if ( $( '#primary-bar .slicknav_menu ul[aria-hidden="false"]' ).length ) {
+					$( '#primary-menu' ).slicknav( 'close' );
+				}
+			}
+		} );
+		$( '#vertical-menu' ).slicknav( {
+			prependTo: '#secondary-bar',
+			label: sitebox.menusec
+		} );
+		/*-----------------------------------------------------------------------------------*/
+		/*  Preloader Featured Posts
+		/*  Uncomment this if you want to add preloader to the Featured Posts
+		/*-----------------------------------------------------------------------------------*/
+		// var $container = $( '.featured-content1 .hentry' );
+		//
+		// $container.imagesLoaded( {
+		// 		background: true
+		// 	} )
+		// 	.progress( onProgress() )
+		// 	.done( onDone );
+		//
+		// function onProgress( imgLoad, image ) {
+		// 	$container.addClass( 'is-loading' );
+		// 	$container.prepend( '<div class="is-loader"></div>' )
+		// 	// console.log( "On Progress!" );
+		// }
+		//
+		// function onDone() {
+		// 	$container.removeClass( 'is-loading' );
+		// 	$( '.is-loader' ).remove();
+		// 	// console.log( "Done!" );
+		// }
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  bxSlidser
+		/*-----------------------------------------------------------------------------------*/
+		$( '.featured-content1 .bxslider, .featured-content2 .bxslider, .featured-content3 .bxslider' ).bxSlider( {
+			onSliderLoad: function () {
+				$( '.bxslider-wrap' ).css( 'visibility', 'visible' );
+			},
+			prevText: '<i class="fa fa-chevron-left"></i>',
+			nextText: '<i class="fa fa-chevron-right"></i>',
+			mode: 'fade',
+			controls: true,
+			pager: false,
+			adaptiveHeight: true,
+			auto: true,
+			autoHover: true
+		} );
+
+		$( '.featured-content4 .bxslider' ).bxSlider( {
+			onSliderLoad: function () {
+				$( '.bxslider-wrap' ).css( 'visibility', 'visible' );
+			},
+			prevText: '<i class="fa fa-chevron-left"></i>',
+			nextText: '<i class="fa fa-chevron-right"></i>',
+			pagerCustom: '#bx-pager',
+			mode: 'fade',
+			controls: true
+		} );
+
+		$( '.block6 .bxslider' ).bxSlider( {
+			onSliderLoad: function () {
+				$( '.bxslider-wrap' ).css( 'visibility', 'visible' );
+			},
+			prevText: '<i class="fa fa-chevron-left"></i>',
+			nextText: '<i class="fa fa-chevron-right"></i>',
+			pagerCustom: '#bx-pager',
+			mode: 'fade',
+			controls: false
+		} );
+
+		$( '.block2 .bxslider,.block3 .bxslider, .block4 .bxslider, .block7 .bxslider, .blog-layout1 .bxslider, .single .format-gallery .bxslider' ).bxSlider( {
+			onSliderLoad: function () {
+				$( '.bxslider-wrap' ).css( 'visibility', 'visible' );
+			},
+			prevText: '<i class="fa fa-chevron-left"></i>',
+			nextText: '<i class="fa fa-chevron-right"></i>',
+			mode: 'fade',
+			controls: true,
+			adaptiveHeight: true,
+			adaptiveHeightSpeed: 200
+		} );
+
+		$( '.newsticker' ).newsTicker( {
+			row_height: 22,
+			max_rows: 1,
+			speed: 600,
+			direction: 'up',
+			duration: 4000,
+			autostart: 1,
+			pauseOnHover: 1,
+			prevButton: $( '#breaking-prev' ),
+			nextButton: $( '#breaking-next' )
+		} );
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Tooltip
+		/*-----------------------------------------------------------------------------------*/
+		$( '.tooltip' ).tooltipster( {
+			animation: 'grow',
+			delay: 100,
+			theme: 'tooltipster-default',
+			touchDevices: false,
+			trigger: 'hover'
+		} );
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Fitvids
+		/*-----------------------------------------------------------------------------------*/
+		$( '.hentry, .widget' ).fitVids();
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Tabs Widget
+		/*-----------------------------------------------------------------------------------*/
+		var $tabsNav = $( '.tabs-nav' ),
+			$tabsNavLis = $tabsNav.children( 'li' ),
+			$tabContent = $( '.tab-content' );
+
+		$tabsNav.each( function () {
+			var $this = $( this );
+			$this.next().children( '.tab-content' ).stop( true, true ).hide().first().show();
+			$this.children( 'li' ).first().addClass( 'active' ).stop( true, true ).show();
+		} );
+
+		$tabsNavLis.on( 'click', function ( e ) {
+			var $this = $( this );
+			$this.siblings().removeClass( 'active' ).end().addClass( 'active' );
+			$this.parent().next().children( '.tab-content' ).stop( true, true ).hide().siblings( $this.find( 'a' ).attr( 'href' ) ).fadeIn();
+			e.preventDefault();
+		} );
+
+		/*-----------------------------------------------------------------------------------*/
+		/*  Rating / Like
+		/*-----------------------------------------------------------------------------------*/
+		$( '.entry-like a' ).on( 'click', function ( e ) {
+			e.preventDefault();
+
+			var $link = $( this ),
+				$id = $link.attr( 'id' );
+
+			if ( $link.hasClass( 'active' ) ) {
+				return false;
+			}
+
+			$.post( sitebox.ajaxurl, {
+				action: 'sitebox-likes',
+				likes_id: $id
+			}, function ( data ) {
+				$link.html( data ).addClass( 'active' ).attr( 'title', sitebox.rated );
+			} );
+		} );
+
+	} );
+
+	/**
+	 * Fully loaded window
+	 */
+	$( window ).on( 'load', function() {
+
+		// Display mega menu when window is full loaded
+		$( '.sf-mega' ).css( 'visibility', 'visible' );
+
+	} );
+
+}( jQuery, window, document ) );
