@@ -86,10 +86,10 @@ void loop() {
 pomiar_temp_dth11 ();
 pomiar_temp_ds1820b ();
 Serial.println(x);
-if (x>=300)
+if (x>=120)
 {
 wyslanie_do_tgingspeak ();
-x=0;
+
 
 }}
 
@@ -147,8 +147,8 @@ boolean wyslij(String Komenda_AT, char *Odpowiedz_AT, int czas_czekania){
 
 void wyslanie_do_tgingspeak ()
 {
-
-  if(wyslij("AT+CIPSTART=\"TCP\",\"184.106.153.149\",80","CONNECT",1000))     //wyslij(String Komenda_AT, char *Odpowiedz_AT, int czas_czekania)
+delay(1000);
+  if(wyslij("AT+CIPSTART=\"TCP\",\"184.106.153.149\",80","CONNECT",2000))     //wyslij(String Komenda_AT, char *Odpowiedz_AT, int czas_czekania)
   Serial.println("CONNECT - OK!");
 
 String sklejony = GET + field1 + temperatura1 + field2 + DHT11.temperature + field3 + DHT11.humidity;
@@ -159,8 +159,10 @@ String sklejony = GET + field1 + temperatura1 + field2 + DHT11.temperature + fie
   ESP8266.println(cmd);
   delay(1000);
   if(ESP8266.find(">")){
+    delay(1000);
   ESP8266.println(sklejony);
   Serial.println("wyslano");
+  x=0;
   }    
   
 }
