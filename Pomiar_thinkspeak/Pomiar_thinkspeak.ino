@@ -86,7 +86,7 @@ void loop() {
 pomiar_temp_dth11 ();
 pomiar_temp_ds1820b ();
 Serial.println(x);
-if (x>=120)
+if (x>=20)
 {
 wyslanie_do_tgingspeak ();
 
